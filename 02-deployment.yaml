@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sensor-deployment
+  namespace: industrial-iot
+spec:
+  replicas: 2 # On en lance 2 pour tester la haute disponibilité
+  selector:
+    matchLabels:
+      app: sensor
+  template:
+    metadata:
+      labels:
+        app: sensor
+    spec:
+      containers:
+      - name: sensor-app
+        # Note: Pour un vrai projet, tu pousserais cette image sur DockerHub.
+        # Pour la simu, on utilisera une astuce (voir plus bas) ou une image publique.
+        image: python:3.9-slim 
+        command: ["/bin/sh", "-c"]
+        args: ["pip install flask && python -c 'from flask import Flask; app=Flask(__name__); app.run(host=\"0.0.0.0\", port=5000)'"] 
+        # ASTUCE PRO: Ci-dessus j'utilise une image python brute pour éviter que tu aies à build/push sur DockerHub pour l'instant.
+        # Dans ton VRAI code github, mets le nom de ton image DockerHub (ex: lhacen/sensor:v1)
+        ports:
+        - containerPort: 5000

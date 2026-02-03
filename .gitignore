@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.pyc
+venv/
+.env
+
+# Système
+.DS_Store
+Thumbs.db
+
+# IDE (Ne jamais partager ses configs VSCode/IntelliJ)
+.vscode/
+.idea/
+
+# Kubernetes & Secrets (TRES IMPORTANT)
+k3s-config.yaml
+*.kubeconfig
+node-token
+
+# Terraform / Ansible logs
+*.retry
